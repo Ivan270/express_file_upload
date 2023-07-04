@@ -1,0 +1,12 @@
+## Dependencias de desarrollo:
+- nodemon
+
+## Dependencias:
+- sequelize
+- pg
+- pg-hstore
+- express
+- express-fileupload
+- cors
+- morgan
+- dotenv
