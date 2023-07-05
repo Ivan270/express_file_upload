@@ -1,11 +1,11 @@
 import app from './src/app.js';
-import 'dotenv/config';
+// import 'dotenv/config';
 import sequelize from './src/database/database.js';
 
 // Modelos
 import './src/models/producto.model.js';
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 const main = async () => {
 	try {
