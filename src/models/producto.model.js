@@ -20,6 +20,10 @@ const Producto = sequelize.define(
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
+		rutaImagen: {
+			type: DataTypes.STRING,
+			allowNull: false,
+		},
 	},
 	{
 		timestamps: true,

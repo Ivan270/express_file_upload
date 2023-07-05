@@ -1,8 +1,20 @@
 import Producto from '../models/producto.model.js';
+// Para borrar imagen en caso de error se ocupa fs
 import fs from 'fs';
 
-export const findAllProductos = (req, res) => {
-	res.send('Ruta findAll Productos.');
+export const findAllProductos = async (req, res) => {
+	try {
+		let productos = await Producto.findAll({
+			attributes: {
+				exclude: ['createdAt', 'updatedAt'],
+			},
+		});
+		res.json({ code: 200, message: 'ok', data: productos });
+	} catch (error) {
+		res
+			.status(500)
+			.json({ code: 500, message: 'Error al consultar los productos' });
+	}
 };
 export const addProductos = async (req, res) => {
 	//console.log(req.body);
@@ -17,6 +29,7 @@ export const addProductos = async (req, res) => {
 			descripcion,
 			precio: Number(precio),
 			imagen: req.nombreImagen,
+			rutaImagen: `/public/uploads/${req.nombreImagen}`,
 		};
 		let productoCreado = await Producto.create(nuevoProducto);
 		res.status(201).json({

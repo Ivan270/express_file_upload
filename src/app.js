@@ -3,6 +3,9 @@ import upload from 'express-fileupload';
 import cors from 'cors';
 import morgan from 'morgan';
 import productosRoutes from './routes/productos.routes.js';
+import * as path from 'path';
+import { fileURLToPath } from 'url';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 
@@ -14,6 +17,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // Todas las imagenes subidas se guardaran en req.files y no req.body, req.query, req.params
 app.use(upload());
+// Public folder
+app.use('/public', express.static(path.join(__dirname, '/../public')));
 
 // Rutas
 app.use('/api/v1/productos', productosRoutes);
