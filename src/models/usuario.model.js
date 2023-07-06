@@ -23,6 +23,10 @@ const Usuario = sequelize.define(
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
+		admin: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: false,
+		},
 	},
 	{
 		timestamps: true,

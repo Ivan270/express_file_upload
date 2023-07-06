@@ -1,4 +1,4 @@
-import Usuario from '../models/usuario.model';
+import Usuario from '../models/usuario.model.js';
 
 export const addUsuario = async (req, res) => {
 	let { nombre, rut, email, password } = req.body;
@@ -9,11 +9,14 @@ export const addUsuario = async (req, res) => {
 		res.status(201).json({
 			code: 201,
 			data: nuevoUsuario,
-			message: `Usuario ${nuevoUsuario.nombre} creado con ID: ${nuevoUsuario.id}}`,
+			message: `Usuario ${nuevoUsuario.nombre} creado con ID: ${nuevoUsuario.id}`,
 		});
 	} catch (error) {
 		res
 			.status(500)
 			.json({ code: 500, message: 'Error al crear nuevo usuario' });
 	}
+};
+export const login = async (req, res) => {
+	res.json({ code: 200, message: 'Login correcto', token: req.token });
 };
