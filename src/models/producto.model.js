@@ -24,6 +24,10 @@ const Producto = sequelize.define(
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
+		publicIdImagen: {
+			type: DataTypes.STRING,
+			allowNull: false,
+		},
 	},
 	{
 		timestamps: true,

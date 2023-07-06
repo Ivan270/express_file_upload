@@ -1,6 +1,5 @@
 import Producto from '../models/producto.model.js';
-// Para borrar imagen en caso de error se ocupa fs
-import fs from 'fs';
+import { deleteFile } from '../middlewares/uploadCloud.middleware.js';
 
 export const findAllProductos = async (req, res) => {
 	try {
@@ -22,6 +21,7 @@ export const addProductos = async (req, res) => {
 	//console.log(req.files);
 	// req.nombreImagen = nombreFoto; -> viene desde middleware
 	// req.pathImagen = pathDestino; -> viene desde middleware
+	// req.imagenId -> id de imagen en Cloudinary
 
 	try {
 		let nuevoProducto = {
@@ -29,8 +29,9 @@ export const addProductos = async (req, res) => {
 			descripcion,
 			precio: Number(precio),
 			imagen: req.nombreImagen,
-			rutaImagen: `/public/uploads/${req.nombreImagen}`,
-			publicIdImagen: 0,
+			rutaImagen: req.pathImagen,
+			// Para luego poder modificar/eliminar la imagen subida a cloud
+			publicIdImagen: req.imagenId,
 		};
 		let productoCreado = await Producto.create(nuevoProducto);
 		res.status(201).json({
@@ -42,7 +43,7 @@ export const addProductos = async (req, res) => {
 		// Para borrar la imagen en caso de error.
 		// Asi se evita llenar la carpeta de imagenes de peticiones erroneas
 		console.log(error);
-		fs.unlinkSync(req.pathImagen);
+		deleteFile(req.imagenId);
 		res.status(500).send({
 			code: 500,
 			message: 'Error al crear el producto en la base de datos',

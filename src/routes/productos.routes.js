@@ -2,8 +2,8 @@ import { Router } from 'express';
 import {
 	findAllProductos,
 	addProductos,
-} from '../controllers/productos.controller.js';
-import upload from '../middlewares/upload.middleware.js';
+} from '../controllers/productosCloud.controller.js';
+import { uploadFiles as upload } from '../middlewares/uploadCloud.middleware.js';
 const router = Router();
 
 router.get('/', findAllProductos);
