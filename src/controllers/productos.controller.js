@@ -18,6 +18,17 @@ export const findAllProductos = async (req, res) => {
 };
 export const addProductos = async (req, res) => {
 	//console.log(req.body);
+	let usuarioToken = req.usuario;
+	let usuarioDB = await Usuario.findByPk(usuarioToken.id);
+	if (!usuarioDB.admin == true) {
+		return res
+			.status(403)
+			.json({
+				code: 403,
+				message:
+					'Usted no tiene los permisos necesarios para crear un producto',
+			});
+	}
 	let { nombre, descripcion, precio } = req.body;
 	//console.log(req.files);
 	// req.nombreImagen = nombreFoto; -> viene desde middleware

@@ -4,6 +4,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import productosRoutes from './routes/productos.routes.js';
 import usuariosRoutes from './routes/usuarios.routes.js';
+import viewsRoutes from './routes/views.routes.js';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -21,8 +22,11 @@ app.use(upload());
 // Public folder
 app.use('/public', express.static(path.join(__dirname, '/../public')));
 
-// Rutas
+// Rutas endpoints
 app.use('/api/v1/productos', productosRoutes);
 app.use('/api/v1/usuarios', usuariosRoutes);
+
+// Rutas de vista
+app.use('/', viewsRoutes);
 
 export default app;

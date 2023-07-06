@@ -20,3 +20,18 @@ export const addUsuario = async (req, res) => {
 export const login = async (req, res) => {
 	res.json({ code: 200, message: 'Login correcto', token: req.token });
 };
+
+export const findAllUsuarios = async (req, res) => {
+	try {
+		let usuarios = await Usuario.findAll({
+			attributes: {
+				exclude: ['createdAt', 'updatedAt', 'password'],
+			},
+		});
+		res.json({ code: 200, message: 'ok', data: usuarios });
+	} catch (error) {
+		res
+			.status(500)
+			.json({ code: 500, message: 'Error al consultar los usuarios' });
+	}
+};
