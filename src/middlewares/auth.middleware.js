@@ -11,7 +11,9 @@ export const emitToken = async (req, res, next) => {
 		attributes: ['id', 'nombre', 'rut', 'email'],
 	});
 	if (!usuario) {
-		res.status(400).send({ code: 400, message: 'Error de autenticación' });
+		return res
+			.status(400)
+			.json({ code: 400, message: 'Error de autenticación' });
 	}
 	console.log(usuario);
 	// Recibe un objeto
