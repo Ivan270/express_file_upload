@@ -4,6 +4,7 @@ import sequelize from './src/database/database.js';
 
 // Modelos
 import './src/models/producto.model.js';
+import './src/models/usuario.model.js';
 
 const PORT = process.env.PORT || 3000;
 
