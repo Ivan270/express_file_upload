@@ -33,6 +33,9 @@ export const findAllUsuarios = async (req, res) => {
 			attributes: {
 				exclude: ['createdAt', 'updatedAt', 'password'],
 			},
+			order: [
+				['id', 'ASC']
+			]
 		});
 		res.json({ code: 200, message: 'ok', data: usuarios });
 	} catch (error) {

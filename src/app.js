@@ -2,6 +2,8 @@ import express from 'express';
 import upload from 'express-fileupload';
 import cors from 'cors';
 import morgan from 'morgan';
+import { create } from 'express-handlebars';
+
 import productosRoutes from './routes/productos.routes.js';
 import usuariosRoutes from './routes/usuarios.routes.js';
 import viewsRoutes from './routes/views.routes.js';
@@ -10,6 +12,15 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
+
+// HBS Config
+const hbs = create({
+	partialsDir: [path.resolve(__dirname, './views/partials/')],
+});
+
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+app.set('views', path.resolve(__dirname, './views'));
 
 // Middlewares generales
 app.use(cors());

@@ -23,10 +23,15 @@ export const emitToken = async (req, res, next) => {
 };
 export const verifyToken = (req, res, next) => {
 	try {
-		let token = req.headers['authorization'];
-		token = token.split(' ')[1];
-		if (token.length == 0) {
-			throw new Error('No se ha proporcionado un token');
+		// Si token viene por query string, se hace esto
+		let { token } = req.query;
+		if (!token) {
+			// Si viene en los headers del body, se hace esto
+			token = req.headers['authorization'];
+			token = token.split(' ')[1];
+			if (token.length == 0) {
+				throw new Error('No se ha proporcionado un token');
+			}
 		}
 		jwt.verify(token, process.env.PASSWORD_SECRET, async (err, decoded) => {
 			if (err) {
@@ -35,7 +40,9 @@ export const verifyToken = (req, res, next) => {
 					.status(401)
 					.json({ code: 401, message: 'Debe proporcionar un token válido' });
 			}
-			let usuario = await Usuario.findByPk(decoded.id);
+			let usuario = await Usuario.findByPk(decoded.id, {
+				attributes: ['id', 'nombre', 'rut', 'email', 'admin']
+			});
 			if (!usuario) {
 				return res
 					.status(400)
