@@ -29,5 +29,6 @@ router.get('/perfil', verifyToken, async (req, res) => {
 		usuario
 	});
 });
+// router.get('/protegida',)
 
 export default router;

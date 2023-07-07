@@ -2,7 +2,7 @@
 	<div class='container'>
 		<div class='row'>
 			<div class='col-lg-10 offset-lg-1'>
-				<h3 class='mb-3'>Login Now</h3>
+				<h3 class='mb-3'>Ingresa a tu cuenta</h3>
 				<div class='bg-white shadow rounded'>
 					<div class='row'>
 						<div class='col-md-7 pe-0'>
@@ -61,7 +61,7 @@
 								class='form-right h-100 bg-primary text-white text-center d-flex flex-column justify-content-center'
 							>
 								<i class='bi bi-bootstrap'></i>
-								<h2 class='fs-1'>Bienvenido!</h2>
+								<h2 class='fs-1'>¡Bienvenido!</h2>
 							</div>
 						</div>
 					</div>
@@ -71,7 +71,9 @@
 	</div>
 </div>
 
+
 <script>
+
     const formLogin = document.getElementById('formLogin');
     formLogin.addEventListener('submit',(event)=>{
         event.preventDefault();
@@ -97,9 +99,9 @@
             .then(result => {
                 if(result.code == 200){
                     alert(result.message);
-                    console.log(result.token);
+
                     // hacer persistir token en localstorage
-                    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiJ9.eyJpZCI6NCwibm9tYnJlIjoiSXZhbiIsInJ1dCI6IjE2LjYxMi4yNzItNCIsImVtYWlsIjoiaXZhbkBtaW1haWwuY29tIn0.LmyZ98D6NGLUxv09cuqge-SA7JGqCkwJkIGIQYkhhaM');
+                    localStorage.setItem('token', result.token);
                     location.href='/'
                 } else {
                     alert(result.message)
