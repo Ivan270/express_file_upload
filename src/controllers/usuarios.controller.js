@@ -1,10 +1,16 @@
 import Usuario from '../models/usuario.model.js';
 
 export const addUsuario = async (req, res) => {
-	let { nombre, rut, email, password } = req.body;
+	let { nombre, rut, email, password, admin } = req.body;
 	try {
 		// Se crea un nuevo usuario, pero al hacerlo no devolverá la contraseña
-		let nuevoUsuario = await Usuario.create({ nombre, rut, email, password });
+		let nuevoUsuario = await Usuario.create({
+			nombre,
+			rut,
+			email,
+			password,
+			admin,
+		});
 
 		res.status(201).json({
 			code: 201,
